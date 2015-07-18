@@ -1,0 +1,34 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapActivity"
+    android:id="@+id/activity_map_layout">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.mapbox.mapboxsdk.views.MapView
+            android:id="@+id/activity_map_mapview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="250dp"
+            android:clickable="true"
+            mapbox:mapid="@string/mapbox_id_street"
+            mapbox:accessToken="@string/mapbox_token"/>
+
+        <ImageButton
+            android:id="@+id/activity_map_my_location"
+            android:layout_width="wrap_content"
+            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_location"
+            android:background="@null"/>
+
+    </RelativeLayout>
+</RelativeLayout>
