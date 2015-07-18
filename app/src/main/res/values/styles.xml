@@ -5,4 +5,22 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="GetsTheme" parent="@android:style/Theme.Holo.Light">
+
+    </style>
+
+    <style name="ShortTextEntry">
+        <item name="android:maxLength">150</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <style name="ImageButtonNoBackground">
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="ImageButtonNoBackgroundPadding" parent="ImageButtonNoBackground">
+        <item name="android:padding">10dp</item>
+    </style>
+
 </resources>

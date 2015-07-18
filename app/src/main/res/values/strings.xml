@@ -7,4 +7,14 @@
     <string name="mapbox_id_street" translatable="false">alexander1.gdaod0en</string>
     <string name="mapbox_token" translatable="false">sk.eyJ1IjoiYWxleGFuZGVyMSIsImEiOiJReWtia2VVIn0.b4rUN0uiKdVGzgq4mAA7ZQ</string>
 
+    <string name="action_add_new_point">Add new point</string>
+    <string name="title_activity_add_new_point">Add a point</string>
+    <string name="str_point_name">Point name</string>
+    <string name="choose_category">Choose category</string>
+    <string name="activity_addnewpoint_mapview_info">To change marker location, click on the desirable location at the map</string>
+    <string name="no_network">No network connection found. You can save point locally and upload it later.</string>
+    <string name="done">Done</string>
+
+    <string name="change_view" translatable="false">Change view</string>
+    <string name="title_activity_category">Categories</string>
 </resources>
