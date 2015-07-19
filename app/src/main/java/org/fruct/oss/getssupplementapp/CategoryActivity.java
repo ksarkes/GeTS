@@ -24,15 +24,18 @@ public class CategoryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        Log.d(Const.TAG, "ololo");
 
         GetsDbHelper dbHelper = new GetsDbHelper(getApplicationContext(), DatabaseType.DATA_FROM_API);
         final ArrayList<Category> categories = dbHelper.getCategories();
 
 
         ArrayList<String> items = new ArrayList<String>();
-        for (Category category : categories) {
-            items.add(category.name);
+        try {
+            for (Category category : categories) {
+                items.add(category.name);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
