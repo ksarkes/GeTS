@@ -55,9 +55,12 @@ public class MapActivity extends Activity implements LocationListener{
         setContentView(R.layout.activity_map);
 
         setUpLocation();
+
         context = getApplicationContext();
         mMapView = (MapView) findViewById(R.id.activity_map_mapview);
+
         setUpMapView();
+
         if (!isAuthorized()) {
             Intent i = new Intent(this, LoginActivity.class);
             startActivityForResult(i, Const.INTENT_RESULT_TOKEN);
@@ -89,7 +92,6 @@ public class MapActivity extends Activity implements LocationListener{
                                 getLocation().getLatitude(),
                                 getLocation().getLongitude())
                 );
-                Toast.makeText(getApplicationContext(), Settings.getToken(context), Toast.LENGTH_SHORT).show();
             }
         });
         if (sLocation != null)
