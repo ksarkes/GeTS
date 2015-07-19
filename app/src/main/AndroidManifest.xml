@@ -35,7 +35,12 @@
             android:name=".CategoryActivity"
             android:label="@string/title_activity_category"
             android:parentActivityName=".MapActivity">
+        </activity>
 
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".MapActivity" >
         </activity>
 
     </application>
