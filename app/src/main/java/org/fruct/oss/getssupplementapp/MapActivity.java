@@ -5,18 +5,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.overlay.Icon;
 import com.mapbox.mapboxsdk.overlay.Marker;
 import com.mapbox.mapboxsdk.views.MapView;
+
+import org.fruct.oss.getssupplementapp.Api.CategoriesGet;
+import org.fruct.oss.getssupplementapp.Database.GetsDbHelper;
+import org.fruct.oss.getssupplementapp.Model.CategoriesResponse;
+import org.fruct.oss.getssupplementapp.Model.DatabaseType;
 
 
 public class MapActivity extends Activity {
 
     static Context context;
-    private MapView mMapView;
+    public MapView mMapView;
     public static Location getLocation() {
         return sLocation;
     }
@@ -45,6 +53,7 @@ public class MapActivity extends Activity {
         context = getApplicationContext();
         mMapView = (MapView) findViewById(R.id.activity_map_mapview);
         setUpMapView();
+        loadPoints();
     }
 
 
@@ -60,6 +69,16 @@ public class MapActivity extends Activity {
         else
             mMapView.getController().setZoom(3);
     }
+
+    private void loadPoints() {
+        CategoriesGet categoriesGet = new CategoriesGet(Settings.getToken(getApplicationContext()));
+
+        categoriesGet.execute();
+    }
+
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

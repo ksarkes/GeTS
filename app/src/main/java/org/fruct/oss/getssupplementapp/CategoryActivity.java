@@ -1,7 +1,19 @@
 package org.fruct.oss.getssupplementapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import org.fruct.oss.getssupplementapp.Database.GetsDbHelper;
+import org.fruct.oss.getssupplementapp.Model.Category;
+import org.fruct.oss.getssupplementapp.Model.DatabaseType;
+
+import java.util.ArrayList;
 
 /**
  * Created by Andrey on 18.07.2015.
@@ -11,5 +23,37 @@ public class CategoryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        Log.d(Const.TAG, "ololo");
+
+        GetsDbHelper dbHelper = new GetsDbHelper(getApplicationContext(), DatabaseType.DATA_FROM_API);
+        final ArrayList<Category> categories = dbHelper.getCategories();
+
+
+        ArrayList<String> items = new ArrayList<String>();
+        for (Category category : categories) {
+            items.add(category.name);
+        }
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+
+        ListView listView = (ListView) findViewById(R.id.activity_category_listview);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Category category = categories.get(position);
+
+                Log.d(Const.TAG, "Clicked category: " + category.name);
+
+                Intent i = new Intent();
+                i.putExtra("name", category.name);
+                i.putExtra("category", category.id);
+                i.putExtra("description", category.description);
+                setResult(Const.INTENT_RESULT_CODE_OK, i);
+                finish();
+            }
+        });
     }
 }
