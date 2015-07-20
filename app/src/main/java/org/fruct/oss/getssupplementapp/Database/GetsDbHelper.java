@@ -147,6 +147,7 @@ public class GetsDbHelper extends SQLiteOpenHelper{
 
             } while (cursor.moveToNext());
 
+            cursor.close();
             db.close();
             return list;
         }
