@@ -67,7 +67,6 @@ public class LoginActivity extends Activity {
 
                     // Save token
                     Log.d(Const.TAG, "Login response token: " + loginResponse.token);
-                    Toast.makeText(getApplicationContext(), loginResponse.token, Toast.LENGTH_SHORT).show();
                     Settings.saveString(getApplicationContext(), Const.PREFS_AUTH_TOKEN, loginResponse.token);
 
                     // Close activity after obtaining token
