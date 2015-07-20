@@ -23,7 +23,9 @@ import org.fruct.oss.getssupplementapp.Api.CategoriesGet;
 import org.fruct.oss.getssupplementapp.Database.GetsDbHelper;
 import org.fruct.oss.getssupplementapp.Model.CategoriesResponse;
 import org.fruct.oss.getssupplementapp.Model.DatabaseType;
-
+import org.fruct.oss.getssupplementapp.Api.PointsGet;
+import org.fruct.oss.getssupplementapp.Model.PointsResponse;
+import org.fruct.oss.getssupplementapp.Model.Point;
 
 public class MapActivity extends Activity implements LocationListener{
 
@@ -124,7 +126,52 @@ public class MapActivity extends Activity implements LocationListener{
         Toast.makeText(this, "Can't determine location", Toast.LENGTH_SHORT).show();
     }
     private void loadPoints() {
-        CategoriesGet categoriesGet = new CategoriesGet(Settings.getToken(getApplicationContext()));
+
+        if (getLocation() == null) {
+            Log.e(Const.TAG, "Locations is null");
+            return;
+        }
+
+        Toast.makeText(this, "Categories has been downloaded", Toast.LENGTH_SHORT).show();
+        final PointsGet pointsGet = new PointsGet(Settings.getToken(getApplicationContext()),
+                getLocation().getLatitude(), getLocation().getLongitude(), Const.API_POINTS_RADIUS) {
+
+            @Override
+            public void onPostExecute(final PointsResponse response) {
+                // TODO: check for response code
+
+                Log.d(Const.TAG, "Categories has been downloaded");
+
+
+                Log.d(Const.TAG, "Points array size: " + response.points.size());
+
+
+                // Add marker through 'low level' style
+                for (Point point : response.points) {
+                    Marker marker = new Marker(mMapView, point.name, "", new LatLng(point.latitude, point.longitude));
+                    marker.setIcon(new Icon(IconHolder.getInstance().getDrawableByCategoryId(getResources(), point.categoryId)));
+                    marker.setRelatedObject(point);
+                    //markers.add(marker);
+                    mMapView.addMarker(marker);
+                }
+            }
+
+        };
+
+
+        CategoriesGet categoriesGet = new CategoriesGet(Settings.getToken(getApplicationContext())) {
+            @Override
+            public void onPostExecute(CategoriesResponse response) {
+                if (response == null)
+                    return;
+
+                GetsDbHelper dbHelper = new GetsDbHelper(getApplicationContext(), DatabaseType.DATA_FROM_API);
+                dbHelper.addCategories(response.categories);
+                Log.d(Const.TAG, "Categories has been downloaded");
+
+                pointsGet.execute();
+            }
+        };
 
         categoriesGet.execute();
     }
