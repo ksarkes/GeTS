@@ -25,9 +25,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.fruct.oss.getssupplementapp.Const;
 import org.fruct.oss.getssupplementapp.Model.LoginResponse;
 
-/**
- * Created by alexander on 04.09.14.
- */
 public class AuthStepTwo extends AsyncTask<String, String, LoginResponse> {
 
     private String id;
