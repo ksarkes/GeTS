@@ -22,7 +22,7 @@
     <string name="no_network">No network connection found. You can save point locally and upload it later.</string>
     <string name="saved_to_local_db">Saved to local database</string>
     <string name="delete">Delete</string>
-    <string name="enter_name_description_url">Please, enter name, rating and choose a category</string>
+    <string name="enter_name_description_url">Пожалуста введите имя, рейтинг и категорию препятствия</string>
     <string name="enter_valid_url">Please, enter a valid URL address</string>
     <string name="choose_category">Choose category</string>
     <string name="title_activity_category">Categories</string>
@@ -33,5 +33,6 @@
     <string name="category">Category: </string>
     <string name="category_description">Category description: </string>
     <string name="error_deleting_point">Error while deleting point</string>
+    <string name="network_error_authorization">Для продолжения работы подключите интернет</string>
 
 </resources>

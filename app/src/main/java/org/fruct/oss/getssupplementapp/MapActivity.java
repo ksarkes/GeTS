@@ -7,6 +7,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +32,7 @@ import com.mapbox.mapboxsdk.views.MapView;
 import com.mapbox.mapboxsdk.views.MapViewListener;
 
 import org.fruct.oss.getssupplementapp.Api.CategoriesGet;
+import org.fruct.oss.getssupplementapp.Api.PointsAdd;
 import org.fruct.oss.getssupplementapp.Database.GetsDbHelper;
 import org.fruct.oss.getssupplementapp.Model.BasicResponse;
 import org.fruct.oss.getssupplementapp.Model.CategoriesResponse;
@@ -78,9 +81,15 @@ public class MapActivity extends Activity implements LocationListener{
         setUpMapView();
 
         if (!isAuthorized()) {
-            Intent i = new Intent(this, LoginActivity.class);
-            startActivityForResult(i, Const.INTENT_RESULT_TOKEN);
-            // TODO: make intent for result (load points after authorization)
+            if(isInternetConnectionAvailable()) {
+                Intent i = new Intent(this, LoginActivity.class);
+                startActivityForResult(i, Const.INTENT_RESULT_TOKEN);
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), getString(R.string.network_error_authorization), Toast.LENGTH_SHORT).show();
+                return;
+            }
         } else {
             Log.d(Const.TAG, "Authorized, downloading categories");
             loadPoints();
@@ -347,7 +356,21 @@ public class MapActivity extends Activity implements LocationListener{
         hideBottomPanel();
     }
 
+    public static boolean isInternetConnectionAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
+        if (networkInfo != null && networkInfo.isConnected())
+            return true;
+
+        return false;
+    }
+
+    private void addMarker(Point point){
+        Marker marker = new Marker(mMapView, point.name, "", new LatLng(point.latitude, point.longitude));
+        marker.setRelatedObject(point);
+        mMapView.addMarker(marker);
+    }
 
 
 
@@ -377,6 +400,79 @@ public class MapActivity extends Activity implements LocationListener{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        if (resultCode != Const.INTENT_RESULT_CODE_OK) {
+            return;
+        }
+
+
+        if (requestCode == Const.INTENT_RESULT_NEW_POINT) {
+            String pointName = data.getStringExtra("name");
+            String pointUrl = data.getStringExtra("url");
+            float rating = data.getFloatExtra("rating", 0f);
+            double latitude = data.getDoubleExtra("latitude", 0);
+            double longitude = data.getDoubleExtra("longitude", 0);
+            int pointCategory = data.getIntExtra("category", 0);
+
+
+            // Save to local database when no Internet connection
+            if (!isInternetConnectionAvailable()) {
+                GetsDbHelper dbHelper = new GetsDbHelper(getApplicationContext(), DatabaseType.USER_GENERATED);
+                dbHelper.addPoint(pointName,
+                        pointUrl,
+                        "?",
+                        System.currentTimeMillis() + "",
+                        latitude,
+                        longitude,
+                        rating);
+
+                Toast.makeText(getApplicationContext(), getString(R.string.saved_to_local_db), Toast.LENGTH_SHORT).show();
+            } else {
+                // Send to API
+                PointsAdd pointsAdd = new PointsAdd(Settings.getToken(getApplicationContext()),
+                        pointCategory,
+                        pointName,
+                        rating,
+                        latitude,
+                        longitude,
+                        System.currentTimeMillis()
+                ) {
+                    @Override
+                    public void onPostExecute(PointsResponse response) {
+                        if (response.code == 0) { // FIXME: codes
+                            Toast.makeText(getApplicationContext(), getString(R.string.successuflly_sent), Toast.LENGTH_SHORT).show();
+                        } else {
+                            // TODO
+                        }
+
+                    }
+                };
+
+                pointsAdd.execute();
+            }
+
+            // Finally, add marker to the map (it is not in array of APIs markers yet, it will be after next sync
+            Point point = new Point();
+            point.name = pointName;
+            point.url = pointUrl;
+            point.latitude = latitude;
+            point.longitude = longitude;
+            point.rating = rating;
+
+            mMapView.getController().animateTo(
+                    new LatLng(
+                            latitude,
+                            longitude,
+                            16)
+            );
+
+            addMarker(point);
+        }
+
+        if (requestCode == Const.INTENT_RESULT_TOKEN) {
+            // Save token
+            Settings.saveString(getApplicationContext(), Const.PREFS_AUTH_TOKEN, data.getStringExtra("token"));
+            loadPoints();
+        }
     }
     @Override
     public void onProviderEnabled(String provider) {

@@ -8,8 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.api.ILatLng;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -19,13 +22,16 @@ import com.mapbox.mapboxsdk.overlay.MapEventsReceiver;
 import com.mapbox.mapboxsdk.overlay.Marker;
 import com.mapbox.mapboxsdk.views.MapView;
 
+import org.fruct.oss.getssupplementapp.Database.GetsDbHelper;
+import org.fruct.oss.getssupplementapp.Model.DatabaseType;
+
 /**
  * Created by Andrey on 18.07.2015.
  */
 public class AddNewPointActivity extends Activity {
 
     RatingBar rbRating;
-
+    private int category = -1;
     Button btCategory;
 
     ImageButton btLocation;
@@ -152,17 +158,6 @@ public class AddNewPointActivity extends Activity {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -170,7 +165,30 @@ public class AddNewPointActivity extends Activity {
         Intent intent = new Intent();
 
         if (id == R.id.action_done){
-            //TODO: handler
+            EditText Point_name = (EditText) findViewById(R.id.activity_addpoint_name);
+            String pointName = Point_name.getText().toString();
+
+            float ratingValue = rbRating.getRating();
+
+            if (ratingValue == 0f || getCategory() == -1) {
+                Toast.makeText(getApplicationContext(), getString(R.string.enter_name_description_url), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            LatLng markerLocation = getChoosedLocation().getPoint();
+            GetsDbHelper DbHelp = new GetsDbHelper(getApplicationContext(), DatabaseType.DATA_FROM_API);;
+            if (!(pointName == null || pointName.equals("") || pointName.isEmpty()))
+                intent.putExtra("name", pointName);
+            else {
+                String name = DbHelp.getCategoryName(getCategory());
+                intent.putExtra("name", name);
+            }
+
+
+            intent.putExtra("latitude", markerLocation.getLatitude());
+            intent.putExtra("longitude", markerLocation.getLongitude());
+            intent.putExtra("category", getCategory());
+            intent.putExtra("rating", ratingValue);
             setResult(Const.INTENT_RESULT_CODE_OK, intent);
             finish();
         }
@@ -178,8 +196,24 @@ public class AddNewPointActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public int getCategory(){
+        return this.category;
+    }
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //TODO: handler
+        if (resultCode != Const.INTENT_RESULT_CODE_OK) {
+            return;
+        }
+
+        int categoryId = data.getIntExtra("category", -1);
+        String name = data.getStringExtra("name");
+        setCategory(categoryId);
+        btCategory.setText(getString(R.string.category) + name);
+
     }
 }
