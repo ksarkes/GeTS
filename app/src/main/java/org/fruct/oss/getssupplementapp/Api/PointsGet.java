@@ -25,6 +25,9 @@ import org.fruct.oss.getssupplementapp.Const;
 import org.fruct.oss.getssupplementapp.Model.Point;
 import org.fruct.oss.getssupplementapp.Model.PointsResponse;
 
+/**
+ * Created by alexander on 04.09.14.
+ */
 public class PointsGet extends AsyncTask<String, String, PointsResponse> {
 
     private String authToken;
@@ -161,7 +164,7 @@ public class PointsGet extends AsyncTask<String, String, PointsResponse> {
                         point.longitude = Float.parseFloat(coordinates.split(",")[0]);
                         point.latitude = Float.parseFloat(coordinates.split(",")[1]);
 
-                    } catch (Exception e) {
+                    }catch (Exception e) {
                         Log.d(Const.TAG + "xml", "Error parsing XML " + e.toString());
                     }
 

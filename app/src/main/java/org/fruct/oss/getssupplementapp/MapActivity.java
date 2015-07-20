@@ -7,31 +7,20 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mapbox.mapboxsdk.api.ILatLng;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.overlay.Icon;
 import com.mapbox.mapboxsdk.overlay.Marker;
 import com.mapbox.mapboxsdk.views.MapView;
-import com.mapbox.mapboxsdk.views.MapViewListener;
 
 import org.fruct.oss.getssupplementapp.Api.CategoriesGet;
 import org.fruct.oss.getssupplementapp.Database.GetsDbHelper;
-import org.fruct.oss.getssupplementapp.Model.BasicResponse;
 import org.fruct.oss.getssupplementapp.Model.CategoriesResponse;
 import org.fruct.oss.getssupplementapp.Model.DatabaseType;
 import org.fruct.oss.getssupplementapp.Api.PointsGet;
@@ -52,18 +41,7 @@ public class MapActivity extends Activity implements LocationListener{
 
     private static Location sLocation;
 
-
-    public Marker getCurrentSelectedMarker() {
-        return currentSelectedMarker;
-    }
-
-    public void setCurrentSelectedMarker(Marker currentSelectedMarker) {
-        this.currentSelectedMarker = currentSelectedMarker;
-    }
-
-
     Marker currentSelectedMarker = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,51 +92,7 @@ public class MapActivity extends Activity implements LocationListener{
             mMapView.getController().setCenter(new LatLng(getLocation().getLatitude(), getLocation().getLongitude()));
         else
             mMapView.getController().setZoom(3);
-
-        hideBottomPanel();
-
-        mMapView.setMapViewListener(new MapViewListener() {
-            @Override
-            public void onShowMarker(MapView mapView, Marker marker) {
-
-            }
-
-            @Override
-            public void onHideMarker(MapView mapView, Marker marker) {
-
-            }
-
-            @Override
-            public void onTapMarker(MapView mapView, Marker marker) {
-
-                setCurrentSelectedMarker(marker);
-
-                marker.getToolTip(mapView).getView().setVisibility(View.GONE);
-                Point point = (Point) marker.getRelatedObject();
-                Log.d(Const.TAG, "Marker clicked: " + point.name);
-
-                setBottomPanelData(point); // TODO: description
-
-            }
-
-            @Override
-            public void onLongPressMarker(MapView mapView, Marker marker) {
-
-            }
-
-            @Override
-            public void onTapMap(MapView mapView, ILatLng iLatLng) {
-                clearBottomPanelData();
-            }
-
-            @Override
-            public void onLongPressMap(MapView mapView, ILatLng iLatLng) {
-
-            }
-        });
-
     }
-
 
     private void setUpLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -220,133 +154,6 @@ public class MapActivity extends Activity implements LocationListener{
 
         categoriesGet.execute();
     }
-
-    RelativeLayout rlBottomPanel = null;
-    TextView tvBottomPanelName = null;
-    TextView tvBottomPanelDescription = null;
-    ImageView ivBottomPanelIcon = null;
-    View viGradient = null;
-
-
-    private void initBottomPanel(){
-        if (rlBottomPanel == null)
-            rlBottomPanel = (RelativeLayout) findViewById(R.id.activity_map_bottom_panel);
-        else
-            return;
-
-        if (tvBottomPanelName == null)
-            tvBottomPanelName = (TextView) findViewById(R.id.acitivity_map_point_name);
-
-        if (tvBottomPanelDescription == null)
-            tvBottomPanelDescription = (TextView) findViewById(R.id.acitivity_map_point_description);
-
-        if (ivBottomPanelIcon == null)
-            ivBottomPanelIcon = (ImageView) findViewById(R.id.activity_map_bottom_panel_icon);
-
-        if (viGradient == null)
-            viGradient = findViewById(R.id.activity_map_bottom_panel_gradient);
-    }
-
-    private void setBottomPanelData(final Point point) {
-
-        initBottomPanel();
-
-        tvBottomPanelName.setText(point.name);
-
-        String descriptionText = "";
-
-        if (point.description != null && !point.description.equals(""))
-            descriptionText += point.description + "\n";
-
-        if (point.rating != 0)
-            descriptionText += getString(R.string.rating) + point.rating;
-
-        if (!descriptionText.equals("")) {
-            tvBottomPanelDescription.setText(descriptionText.trim());
-            tvBottomPanelDescription.setVisibility(View.VISIBLE);
-        } else {
-            tvBottomPanelDescription.setVisibility(View.INVISIBLE);
-        }
-
-        if (IconHolder.getInstance().getDrawableByCategoryId(getResources(), point.categoryId) != null)
-            ivBottomPanelIcon.setImageDrawable(IconHolder.getInstance().getDrawableByCategoryId(getResources(), point.categoryId));
-
-
-        Log.d(Const.TAG + " marker clicked ", point.name + " " + point.description);
-
-        Log.d(Const.TAG, point.uuid + "  = uuid");
-        if (!isBottomPanelShowed())
-            showBottomPanel();
-
-    }
-
-    private void hideBottomPanel() {
-        initBottomPanel();
-
-        Animation fadeOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
-        fadeOut.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                rlBottomPanel.setVisibility(View.INVISIBLE);
-                viGradient.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-
-        if (rlBottomPanel == null) {
-            rlBottomPanel = (RelativeLayout) findViewById(R.id.activity_map_bottom_panel);
-            viGradient = findViewById(R.id.activity_map_bottom_panel_gradient);
-        }
-
-        rlBottomPanel.setAnimation(fadeOut);
-        viGradient.setAnimation(fadeOut);
-
-    }
-
-    private void showBottomPanel() {
-
-        initBottomPanel();
-
-        Animation fadeOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
-        fadeOut.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                rlBottomPanel.setVisibility(View.VISIBLE);
-                viGradient.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-
-        rlBottomPanel.setAnimation(fadeOut);
-        viGradient.setAnimation(fadeOut);
-        rlBottomPanel.setVisibility(View.VISIBLE);
-
-    }
-
-    private boolean isBottomPanelShowed(){
-        return rlBottomPanel.getVisibility() == View.VISIBLE;
-    }
-
-    private void clearBottomPanelData() {
-        //setBottomPanelData("", "", null);
-        initBottomPanel();
-        hideBottomPanel();
-    }
-
 
 
 

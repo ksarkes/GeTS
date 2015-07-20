@@ -12,48 +12,6 @@
     tools:context="org.fruct.oss.getssupplementapp.AddNewPointActivity"
     >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/activity_addpoint_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/str_point_name"
-            android:inputType="textCapSentences"
-            android:maxLength="150"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            style="@style/ShortTextEntry"/>
-
-        <Button
-            android:id="@+id/activity_addpoint_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_category"/>
-
-        <RatingBar
-            android:id="@+id/activity_addpoint_ratingbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="0.5"
-            android:rating="2.5"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_addnewpoint_mapview_info"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textColor="@color/black"
-            android:textSize="12sp"/>
-    </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -109,6 +67,51 @@
 
         </LinearLayout>
     </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
+
+        <EditText
+            android:id="@+id/activity_addpoint_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/str_point_name"
+            android:inputType="textCapSentences"
+            android:maxLength="150"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            style="@style/ShortTextEntry"/>
+
+        <Button
+            android:id="@+id/activity_addpoint_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_category"/>
+
+        <RatingBar
+            android:id="@+id/activity_addpoint_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:rating="2.5"
+            android:layout_gravity="center"/>
+
+        <!-- Location block -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_addnewpoint_mapview_info"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"/>
+    </LinearLayout>
 
 
 </LinearLayout>
