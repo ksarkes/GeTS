@@ -41,14 +41,6 @@ public class MapActivity extends Activity implements LocationListener{
 
     private static Location sLocation;
 
-    public Marker getCurrentSelectedMarker() {
-        return currentSelectedMarker;
-    }
-
-    public void setCurrentSelectedMarker(Marker currentSelectedMarker) {
-        this.currentSelectedMarker = currentSelectedMarker;
-    }
-
     Marker currentSelectedMarker = null;
 
     @Override
@@ -131,27 +123,16 @@ public class MapActivity extends Activity implements LocationListener{
             Log.e(Const.TAG, "Locations is null");
             return;
         }
-
-        Toast.makeText(this, "Categories has been downloaded", Toast.LENGTH_SHORT).show();
         final PointsGet pointsGet = new PointsGet(Settings.getToken(getApplicationContext()),
                 getLocation().getLatitude(), getLocation().getLongitude(), Const.API_POINTS_RADIUS) {
 
             @Override
             public void onPostExecute(final PointsResponse response) {
-                // TODO: check for response code
 
-                Log.d(Const.TAG, "Categories has been downloaded");
-
-
-                Log.d(Const.TAG, "Points array size: " + response.points.size());
-
-
-                // Add marker through 'low level' style
                 for (Point point : response.points) {
                     Marker marker = new Marker(mMapView, point.name, "", new LatLng(point.latitude, point.longitude));
                     marker.setIcon(new Icon(IconHolder.getInstance().getDrawableByCategoryId(getResources(), point.categoryId)));
                     marker.setRelatedObject(point);
-                    //markers.add(marker);
                     mMapView.addMarker(marker);
                 }
             }
@@ -167,8 +148,6 @@ public class MapActivity extends Activity implements LocationListener{
 
                 GetsDbHelper dbHelper = new GetsDbHelper(getApplicationContext(), DatabaseType.DATA_FROM_API);
                 dbHelper.addCategories(response.categories);
-                Log.d(Const.TAG, "Categories has been downloaded");
-
                 pointsGet.execute();
             }
         };
