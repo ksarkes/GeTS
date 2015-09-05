@@ -35,6 +35,14 @@
             android:layout_height="wrap_content"
             android:text="@string/choose_category"/>
 
+        <TextView
+            android:id="@+id/activity_addpoint_category_description"
+            tools:text="Ramp slope"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <RatingBar
             android:id="@+id/activity_addpoint_ratingbar"
             android:layout_width="wrap_content"

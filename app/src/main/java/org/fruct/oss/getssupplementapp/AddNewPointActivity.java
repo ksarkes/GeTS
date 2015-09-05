@@ -38,6 +38,8 @@ public class AddNewPointActivity extends Activity {
     ImageButton btZoomIn;
     ImageButton btZoomOut;
 
+    TextView mCategoryDescription;
+
     private MapView mMap;
 
     public Marker getChoosedLocation() {
@@ -53,6 +55,8 @@ public class AddNewPointActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addnewpoint);
+
+        mCategoryDescription = (TextView) findViewById(R.id.activity_addpoint_category_description);
 
         rbRating = (RatingBar) findViewById(R.id.activity_addpoint_ratingbar);
 
@@ -214,8 +218,11 @@ public class AddNewPointActivity extends Activity {
 
         int categoryId = data.getIntExtra("category", -1);
         String name = data.getStringExtra("name");
+        String description = data.getStringExtra("description");
         setCategory(categoryId);
-        btCategory.setText(getString(R.string.category) + name);
+
+        btCategory.setText(getString(R.string.category) + " " + name);
+        mCategoryDescription.setText(description);
 
     }
 }
