@@ -368,6 +368,7 @@ public class MapActivity extends Activity implements LocationListener{
 
     private void addMarker(Point point){
         Marker marker = new Marker(mMapView, point.name, "", new LatLng(point.latitude, point.longitude));
+        marker.setIcon(new Icon(IconHolder.getInstance().getDrawableByCategoryId(getResources(), point.categoryId)));
         marker.setRelatedObject(point);
         mMapView.addMarker(marker);
     }
@@ -457,6 +458,7 @@ public class MapActivity extends Activity implements LocationListener{
             point.latitude = latitude;
             point.longitude = longitude;
             point.rating = rating;
+            point.categoryId = pointCategory;
 
             mMapView.getController().animateTo(
                     new LatLng(
