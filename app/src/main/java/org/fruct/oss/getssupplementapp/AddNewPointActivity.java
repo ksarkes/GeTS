@@ -100,7 +100,9 @@ public class AddNewPointActivity extends Activity {
         mMap.setClickable(true);
         mMap.setUserLocationEnabled(true);
 
-        int optimalZoom = 16;
+        Intent intent = getIntent();
+        float optimalZoom = intent.getFloatExtra("zoomLevel", 16);
+
         if (mMap.getMaxZoomLevel() < optimalZoom)
             mMap.getController().setZoom(mMap.getMaxZoomLevel());
         else

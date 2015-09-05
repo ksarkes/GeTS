@@ -392,6 +392,7 @@ public class MapActivity extends Activity implements LocationListener{
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
             Intent intent = new Intent(this, AddNewPointActivity.class);
+            intent.putExtra("zoomLevel", mMapView.getZoomLevel());
             startActivityForResult(intent, Const.INTENT_RESULT_NEW_POINT);
         }
 
