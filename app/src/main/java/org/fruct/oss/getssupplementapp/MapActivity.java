@@ -112,10 +112,12 @@ public class MapActivity extends Activity implements LocationListener{
                 if (getLocation() == null)
                     return;
 
-                mMapView.getController().animateTo(
+                mMapView.getController().setZoomAnimated(19,
                         new LatLng(
                                 getLocation().getLatitude(),
-                                getLocation().getLongitude())
+                                getLocation().getLongitude()),
+                        true,
+                        false
                 );
             }
         });
