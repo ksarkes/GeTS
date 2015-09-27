@@ -403,6 +403,7 @@ public class MapActivity extends Activity implements LocationListener{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode != Const.INTENT_RESULT_CODE_OK) {
             return;

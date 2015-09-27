@@ -212,7 +212,9 @@ public class AddNewPointActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Const.INTENT_RESULT_CODE_OK) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != Const.INTENT_RESULT_CODE_OK || data == null) {
             return;
         }
 
