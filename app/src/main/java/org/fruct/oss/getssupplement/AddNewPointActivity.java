@@ -1,8 +1,7 @@
-package org.fruct.oss.getssupplementapp;
+package org.fruct.oss.getssupplement;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,8 +21,8 @@ import com.mapbox.mapboxsdk.overlay.MapEventsReceiver;
 import com.mapbox.mapboxsdk.overlay.Marker;
 import com.mapbox.mapboxsdk.views.MapView;
 
-import org.fruct.oss.getssupplementapp.Database.GetsDbHelper;
-import org.fruct.oss.getssupplementapp.Model.DatabaseType;
+import org.fruct.oss.getssupplement.Database.GetsDbHelper;
+import org.fruct.oss.getssupplement.Model.DatabaseType;
 
 /**
  * Created by Andrey on 18.07.2015.

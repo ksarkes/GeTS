@@ -1,4 +1,4 @@
-package org.fruct.oss.getssupplementapp.Api;
+package org.fruct.oss.getssupplement.Api;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,10 +12,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.fruct.oss.getssupplementapp.Const;
-import org.fruct.oss.getssupplementapp.IconHolder;
-import org.fruct.oss.getssupplementapp.Model.CategoriesResponse;
-import org.fruct.oss.getssupplementapp.Model.Category;
+import org.fruct.oss.getssupplement.Const;
+import org.fruct.oss.getssupplement.IconHolder;
+import org.fruct.oss.getssupplement.Model.CategoriesResponse;
+import org.fruct.oss.getssupplement.Model.Category;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;

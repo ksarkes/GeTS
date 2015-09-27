@@ -1,4 +1,4 @@
-package org.fruct.oss.getssupplementapp;
+package org.fruct.oss.getssupplement;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,9 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,15 +28,14 @@ import com.mapbox.mapboxsdk.overlay.Marker;
 import com.mapbox.mapboxsdk.views.MapView;
 import com.mapbox.mapboxsdk.views.MapViewListener;
 
-import org.fruct.oss.getssupplementapp.Api.CategoriesGet;
-import org.fruct.oss.getssupplementapp.Api.PointsAdd;
-import org.fruct.oss.getssupplementapp.Database.GetsDbHelper;
-import org.fruct.oss.getssupplementapp.Model.BasicResponse;
-import org.fruct.oss.getssupplementapp.Model.CategoriesResponse;
-import org.fruct.oss.getssupplementapp.Model.DatabaseType;
-import org.fruct.oss.getssupplementapp.Api.PointsGet;
-import org.fruct.oss.getssupplementapp.Model.PointsResponse;
-import org.fruct.oss.getssupplementapp.Model.Point;
+import org.fruct.oss.getssupplement.Api.CategoriesGet;
+import org.fruct.oss.getssupplement.Api.PointsAdd;
+import org.fruct.oss.getssupplement.Database.GetsDbHelper;
+import org.fruct.oss.getssupplement.Model.CategoriesResponse;
+import org.fruct.oss.getssupplement.Model.DatabaseType;
+import org.fruct.oss.getssupplement.Api.PointsGet;
+import org.fruct.oss.getssupplement.Model.PointsResponse;
+import org.fruct.oss.getssupplement.Model.Point;
 
 public class MapActivity extends Activity implements LocationListener{
 

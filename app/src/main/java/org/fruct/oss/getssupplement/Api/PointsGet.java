@@ -1,4 +1,4 @@
-package org.fruct.oss.getssupplementapp.Api;
+package org.fruct.oss.getssupplement.Api;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.fruct.oss.getssupplementapp.Const;
-import org.fruct.oss.getssupplementapp.Model.Point;
-import org.fruct.oss.getssupplementapp.Model.PointsResponse;
+import org.fruct.oss.getssupplement.Const;
+import org.fruct.oss.getssupplement.Model.Point;
+import org.fruct.oss.getssupplement.Model.PointsResponse;
 
 public class PointsGet extends AsyncTask<String, String, PointsResponse> {
 

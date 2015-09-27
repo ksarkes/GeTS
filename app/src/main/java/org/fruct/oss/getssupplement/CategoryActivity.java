@@ -1,4 +1,4 @@
-package org.fruct.oss.getssupplementapp;
+package org.fruct.oss.getssupplement;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import org.fruct.oss.getssupplementapp.Database.GetsDbHelper;
-import org.fruct.oss.getssupplementapp.Model.Category;
-import org.fruct.oss.getssupplementapp.Model.DatabaseType;
+import org.fruct.oss.getssupplement.Database.GetsDbHelper;
+import org.fruct.oss.getssupplement.Model.Category;
+import org.fruct.oss.getssupplement.Model.DatabaseType;
 
 import java.util.ArrayList;
 

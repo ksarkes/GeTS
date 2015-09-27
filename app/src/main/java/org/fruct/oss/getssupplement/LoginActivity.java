@@ -1,18 +1,16 @@
-package org.fruct.oss.getssupplementapp;
+package org.fruct.oss.getssupplement;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import org.fruct.oss.getssupplementapp.Api.AuthStepOne;
-import org.fruct.oss.getssupplementapp.Api.AuthStepTwo;
-import org.fruct.oss.getssupplementapp.Model.LoginResponse;
+import org.fruct.oss.getssupplement.Api.AuthStepOne;
+import org.fruct.oss.getssupplement.Api.AuthStepTwo;
+import org.fruct.oss.getssupplement.Model.LoginResponse;
 
 public class LoginActivity extends Activity {
 

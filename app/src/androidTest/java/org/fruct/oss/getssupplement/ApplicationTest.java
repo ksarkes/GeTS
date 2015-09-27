@@ -1,4 +1,4 @@
-package org.fruct.oss.getssupplementapp;
+package org.fruct.oss.getssupplement;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

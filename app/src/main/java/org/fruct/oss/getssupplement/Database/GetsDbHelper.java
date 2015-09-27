@@ -1,4 +1,4 @@
-package org.fruct.oss.getssupplementapp.Database;
+package org.fruct.oss.getssupplement.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,10 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import org.fruct.oss.getssupplementapp.Const;
-import org.fruct.oss.getssupplementapp.Model.Category;
-import org.fruct.oss.getssupplementapp.Model.DatabaseType;
-import org.fruct.oss.getssupplementapp.Model.Point;
+import org.fruct.oss.getssupplement.Const;
+import org.fruct.oss.getssupplement.Model.Category;
+import org.fruct.oss.getssupplement.Model.DatabaseType;
+import org.fruct.oss.getssupplement.Model.Point;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package org.fruct.oss.getssupplementapp.Api;
+package org.fruct.oss.getssupplement.Api;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -11,8 +11,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import org.fruct.oss.getssupplementapp.Const;
-import org.fruct.oss.getssupplementapp.Model.PointsResponse;
+import org.fruct.oss.getssupplement.Const;
+import org.fruct.oss.getssupplement.Model.PointsResponse;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;

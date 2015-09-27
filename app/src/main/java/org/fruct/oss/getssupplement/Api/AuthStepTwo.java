@@ -1,4 +1,4 @@
-package org.fruct.oss.getssupplementapp.Api;
+package org.fruct.oss.getssupplement.Api;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -11,19 +11,17 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.fruct.oss.getssupplementapp.Const;
-import org.fruct.oss.getssupplementapp.Model.LoginResponse;
+import org.fruct.oss.getssupplement.Const;
+import org.fruct.oss.getssupplement.Model.LoginResponse;
 
 public class AuthStepTwo extends AsyncTask<String, String, LoginResponse> {
 

@@ -1,4 +1,4 @@
-package org.fruct.oss.getssupplementapp.Model;
+package org.fruct.oss.getssupplement.Model;
 
 /**
  * Created by alexander on 04.09.14.
