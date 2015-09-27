@@ -24,7 +24,7 @@ public class GetsDbHelper extends SQLiteOpenHelper{
     private DatabaseType databaseType;
 
     public GetsDbHelper(Context context, DatabaseType _databaseType) {
-        super(context, getDatabasePrefix(_databaseType) + Const.DB_INTERNAL_NAME, null, 1);
+        super(context, getDatabasePrefix(_databaseType) + Const.DB_INTERNAL_NAME, null, 3);
         this.databaseType = databaseType;
     }
 
@@ -254,4 +254,8 @@ public class GetsDbHelper extends SQLiteOpenHelper{
         return null;
     }
 
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        super.onDowngrade(db, oldVersion, newVersion);
+    }
 }
