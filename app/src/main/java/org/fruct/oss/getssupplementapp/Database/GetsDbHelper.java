@@ -109,9 +109,7 @@ public class GetsDbHelper extends SQLiteOpenHelper{
         cv.put("name", name);
         cv.put("description", description);
         cv.put("iconurl", url);
-
-        db.insert(Const.DB_INTERNAL_CATEGORIES, null, cv);
-
+        db.insertWithOnConflict(Const.DB_INTERNAL_CATEGORIES, null, cv, SQLiteDatabase.CONFLICT_REPLACE);
         db.close();
     }
 
