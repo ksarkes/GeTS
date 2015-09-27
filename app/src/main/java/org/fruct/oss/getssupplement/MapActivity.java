@@ -70,7 +70,6 @@ public class MapActivity extends Activity implements LocationListener{
         setContentView(R.layout.activity_map);
 
         setUpLocation();
-
         context = getApplicationContext();
         mMapView = (MapView) findViewById(R.id.activity_map_mapview);
 
@@ -117,6 +116,15 @@ public class MapActivity extends Activity implements LocationListener{
                 );
             }
         });
+
+        findViewById(R.id.activity_map_refresh).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMapView.clear();
+                loadPoints();
+            }
+        });
+
         if (sLocation != null)
             mMapView.getController().setCenter(new LatLng(getLocation().getLatitude(), getLocation().getLongitude()));
         else
@@ -208,6 +216,7 @@ public class MapActivity extends Activity implements LocationListener{
                     marker.setRelatedObject(point);
                     mMapView.addMarker(marker);
                 }
+                Toast.makeText(getApplicationContext(),  getString(R.string.succesful_download), Toast.LENGTH_SHORT).show();
             }
 
         };
@@ -226,6 +235,7 @@ public class MapActivity extends Activity implements LocationListener{
         };
 
         categoriesGet.execute();
+
     }
 
     RelativeLayout rlBottomPanel = null;
